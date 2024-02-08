@@ -1,4 +1,11 @@
-class Mesa(var numero:Int, var capacidad:Int, var estado:String, var pedidos:MutableList<Pedido>) {
+class Mesa(var numero:Int, var capacidad:Int) {
+
+    var estado: String = "libre"
+    var pedidos: MutableList<Pedido> = mutableListOf()
+
+    init {
+        require(capacidad in 1..6) { "Solo existen mesas de 1 a 6 comensales" }
+    }
 
     fun ocuparMesa() {
         if (estado == "libre") {
@@ -21,4 +28,12 @@ class Mesa(var numero:Int, var capacidad:Int, var estado:String, var pedidos:Mut
     fun agregarPedido(pedido: Pedido) {
         pedidos.add(pedido)
     }
+
+    override fun toString(): String {
+        return "Mesa $numero: $estado \n${pedidos.joinToString("\n")}\n"
+    }
 }
+
+
+
+

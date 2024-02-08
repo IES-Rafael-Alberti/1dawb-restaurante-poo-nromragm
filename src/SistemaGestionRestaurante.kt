@@ -2,15 +2,23 @@ class SistemaGestionRestaurante(private val mesas: List<Mesa>) {
 
     fun realizarPedido(numeroMesa: Int, pedido: Pedido) {
         //TODO desarrollar este método...
-
+        if (mesas[numeroMesa - 1].estado == "ocupada") {
+            mesas[numeroMesa - 1].agregarPedido(pedido)
+        }
     }
 
     fun cerrarPedido(numeroMesa: Int, numeroPedido: Int? = null) {
-        //TODO desarrollar este método...
+        if (numeroPedido == null) {
+            mesas[numeroMesa - 1].pedidos[(mesas[numeroMesa - 1].pedidos.size - 1)].estado = "servido"
+        } else  {
+            mesas[numeroMesa - 1].pedidos[numeroPedido].estado = "servido"
+        }
     }
 
     fun cerrarMesa(numeroMesa: Int) {
-        //TODO desarrollar este método...
+        if (mesas[numeroMesa - 1].pedidos.all { it.estado == "servido" }) {
+            mesas[numeroMesa - 1].estado = "libre"
+        }
     }
 
     fun buscarPlatos(): List<String>? {

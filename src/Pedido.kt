@@ -1,5 +1,6 @@
-class Pedido(val platos: MutableList<Plato>, val estado:String = "pendiente") {
-
+class Pedido {
+    val platos: MutableList<Plato> = mutableListOf()
+    var estado:String = "pendiente"
     val numero = ++contPedidos
     companion object {
         private var contPedidos = 0
@@ -11,24 +12,21 @@ class Pedido(val platos: MutableList<Plato>, val estado:String = "pendiente") {
 
     fun eliminarPlato(nombrePlato: String) {
         platos.forEach { if(it.nombre == nombrePlato) platos.remove(it) }
-//        val platoEliminar = platos.find { nombrePlato == it.nombre }
-//        if (platoEliminar != null) {
-//            platos.remove(platoEliminar)
-//        }
     }
 
-    fun calcularPrecio() {
+    fun calcularPrecio(): Double {
         var precioTotal = 0.0
         platos.forEach { precioTotal += it.precio }
-
+        return precioTotal
     }
 
-    fun calcularTiempo() {
+    fun calcularTiempo(): Int {
         var tiempoTotal = 0
         platos.forEach { tiempoTotal += it.tiempoPreparacion }
+        return tiempoTotal
     }
 
     override fun toString(): String {
-        return super.toString()
+        return "${platos.joinToString("\n")}\nEstado: $estado"
     }
 }

@@ -3,49 +3,47 @@ class Plato(nombre:String, precio:Double, tiempoPreparacion:Int, ingredientes:Mu
     var nombre:String = nombre
         set(value) {
             requiereNombre()
-            field = value  //value.ifBlank() { throw IllegalArgumentException("El nombre no puede estar vacio") }
+            field = value
         }
 
     var precio:Double = precio
         set(value) {
             requierePrecio()
-            field = value  //if (value > 0) value else throw IllegalArgumentException("El precio no puede ser negativo")
+            field = value
         }
 
     var tiempoPreparacion:Int = tiempoPreparacion
         set(value) {
             requiereTiempoPreparacion()
-            field = value  //if (value >= 1) value else throw IllegalArgumentException("")
+            field = value
         }
 
     private fun requiereNombre() {
-        TODO("Not yet implemented")
+        require(nombre.isNotBlank()) { "El nombre no puede estar vacio" }
     }
     private fun requierePrecio() {
-        TODO("Not yet implemented")
+        require(precio > 0) { "El precio no puede ser negativo" }
     }
     private fun requiereTiempoPreparacion() {
-        TODO("Not yet implemented")
+        require(tiempoPreparacion > 1) { "El tiempo de preparacion no puede ser inferior a 1" }
     }
 
     val ingredientes = mutableListOf<String>()
 
     fun agregarIngrediente(ingrediente: String) {
-        if (ingrediente.isNotBlank()) {
+        require(ingrediente.isNotBlank()) { "El ingrediente no puede ser vacío." }
             ingredientes.add(ingrediente)
-        }
-        else throw IllegalArgumentException("El ingrediente no puede estar vacio")
     }
 
     init {
         requiereNombre()
         requierePrecio()
         requiereTiempoPreparacion()
-
+        require(ingredientes.isNotEmpty()) { "" }
     }
 
 
     override fun toString(): String {
-        return "$nombre ($tiempoPreparacion min.) -> $precio€ (${ingredientes.joinToString { ", " }})"
+        return "$nombre ($tiempoPreparacion min.) -> $precio€ (${ingredientes.joinToString(", ")})"
     }
 }
