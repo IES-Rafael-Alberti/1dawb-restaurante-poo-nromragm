@@ -1,45 +1,44 @@
-class Plato(nombre:String, precio:Double, tiempoPreparacion:Int, ingredientes:MutableList<String>)  {
+class Plato(nombre:String, precio:Double, tiempoPreparacion:Int, val ingredientes:MutableList<String>)  {
 
     var nombre:String = nombre
         set(value) {
-            requiereNombre()
+            requiereNombre(value)
             field = value
         }
 
     var precio:Double = precio
         set(value) {
-            requierePrecio()
+            requierePrecio(value)
             field = value
         }
 
     var tiempoPreparacion:Int = tiempoPreparacion
         set(value) {
-            requiereTiempoPreparacion()
+            requiereTiempoPreparacion(value)
             field = value
         }
 
-    private fun requiereNombre() {
+    private fun requiereNombre(nombre: String) {
         require(nombre.isNotBlank()) { "El nombre no puede estar vacio" }
     }
-    private fun requierePrecio() {
+    private fun requierePrecio(precio: Double) {
         require(precio > 0) { "El precio no puede ser negativo" }
     }
-    private fun requiereTiempoPreparacion() {
+    private fun requiereTiempoPreparacion(tiempoPreparacion: Int) {
         require(tiempoPreparacion > 1) { "El tiempo de preparacion no puede ser inferior a 1" }
     }
 
-    val ingredientes = mutableListOf<String>()
 
     fun agregarIngrediente(ingrediente: String) {
-        require(ingrediente.isNotBlank()) { "El ingrediente no puede ser vacío." }
-            ingredientes.add(ingrediente)
+        require(ingrediente.isNotBlank()) { "El ingrediente no puede estar vacío." }
+        ingredientes.add(ingrediente)
     }
 
     init {
-        requiereNombre()
-        requierePrecio()
-        requiereTiempoPreparacion()
-        require(ingredientes.isNotEmpty()) { "" }
+        requiereNombre(nombre)
+        requierePrecio(precio)
+        requiereTiempoPreparacion(tiempoPreparacion)
+        require(ingredientes.isNotEmpty()) { "El ingrediente no puede estar vacío." }
     }
 
 

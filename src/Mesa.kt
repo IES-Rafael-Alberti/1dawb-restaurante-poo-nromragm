@@ -30,7 +30,7 @@ class Mesa(var numero:Int, var capacidad:Int) {
     }
 
     override fun toString(): String {
-        return "Mesa $numero: $estado \n${pedidos.joinToString("\n")}\n"
+        return "Mesa $numero: $estado \n${pedidos.joinToString("\n")}"
     }
 }
 
